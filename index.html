@@ -24,6 +24,7 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* الهيدر */
@@ -62,26 +63,154 @@
             margin-bottom: 25px;
         }
 
-        /* زر تجربة البوت الأساسي (باللون الأحمر) */
-        .btn-telegram {
+        /* حاوية الأزرار الرئيسية في الأعلى */
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* زر تجربة البوت الأساسي وزر الدردشة */
+        .btn-telegram, .btn-chat-toggle {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
-            padding: 14px 35px;
+            padding: 14px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             font-size: 1.1rem;
             box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-telegram:hover {
+        .btn-telegram:hover, .btn-chat-toggle:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 25px rgba(239, 68, 68, 0.5);
             background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        /* صندوق الدردشة المنبثق */
+        .chat-container {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 350px;
+            max-width: 90vw;
+            height: 450px;
+            background-color: #1e293b;
+            border: 2px solid #ef4444;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .chat-container.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            padding: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .chat-header .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            background-color: #334155;
+            color: #f1f5f9;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .message.user {
+            background-color: #ef4444;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            padding: 10px;
+            background-color: #0f172a;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #334155;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            padding: 10px 15px;
+            border-radius: 30px;
+            color: white;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #ef4444;
+        }
+
+        .chat-input-area button {
+            background-color: #ef4444;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #dc2626;
         }
 
         /* قسم الخدمات */
@@ -107,7 +236,7 @@
             padding-bottom: 50px;
         }
 
-        /* تعديل بطاقات الخدمات لتلفت الانتباه مع الأطراف الحمراء الملتفة */
+        /* بطاقات الخدمات مع الأطراف والأطر الحمراء المتوهجة */
         .service-card {
             background-color: #1e293b;
             border: 2px solid #ef4444;
@@ -166,11 +295,31 @@
         <h1 id="botName">سيراف - SERAF</h1>
         <p id="botDescription">استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.</p>
         
-        <!-- زر تجربة البوت مع اليوزر الجديد -->
-        <a href="https://t.me/Bot_Swirl_Bot" target="_blank" class="btn-telegram">
-            <i class="fa-brands fa-telegram"></i> تجربة البوت الآن
-        </a>
+        <!-- الأزرار (تجربة البوت + الدردشة مع البوت) -->
+        <div class="header-buttons">
+            <a href="https://t.me/Bot_Swirl_Bot" target="_blank" class="btn-telegram">
+                <i class="fa-brands fa-telegram"></i> تجربة البوت الآن
+            </a>
+            <button class="btn-chat-toggle" onclick="toggleChat()">
+                <i class="fa-solid fa-comments"></i> الدردشة مع البوت
+            </button>
+        </div>
     </header>
+
+    <!-- نافذة الدردشة المنبثقة -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">أهلاً بك! أنا بوت سيراف (SERAF)، كيف يمكنني مساعدتك اليوم؟ يمكنك كتابة أي استفسار أو تجربة أداء خدماتنا هنا.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <!-- قائمة الخدمات -->
     <div class="container">
@@ -185,13 +334,13 @@
         <p>جميع الحقوق محفوظة &copy; 2026 بوت سيراف (SERAF)</p>
     </footer>
 
-    <!-- كود الجافاسكريبت لعرض البيانات وتمرير الصورة المطلوبة -->
+    <!-- كود الجافاسكريبت المطور -->
     <script>
         const botData = {
             name: "سيراف (SERAF)",
             username: "Bot_Swirl_Bot",
             description: "استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.",
-            image: "https://i.ibb.co/Z6NwSjXy/e5fff26ebe26b84d49524c600795f2c0.jpg", // الرابط الجديد للصورة
+            image: "https://i.ibb.co/Z6NwSjXy/e5fff26ebe26b84d49524c600795f2c0.jpg",
             services: [
                 { name: "المساعدة", icon: "fa-solid fa-hands-holding-child" },
                 { name: "معلومات البوت", icon: "fa-solid fa-circle-info" },
@@ -221,15 +370,11 @@
         };
 
         function renderBotWebsite() {
-            // عرض الصورة بالرابط الجديد
+            // عرض الصورة
             const avatarContainer = document.getElementById('botAvatarContainer');
             avatarContainer.innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
 
-            // تحديث رابط زر تجربة البوت
-            const telegramBtn = document.querySelector('.btn-telegram');
-            telegramBtn.href = `https://t.me/${botData.username}`;
-
-            // توليد بطاقات الخدمات مع الأطر الحمراء
+            // توليد بطاقات الخدمات
             const servicesContainer = document.getElementById('servicesContainer');
             let servicesHTML = '';
 
@@ -247,6 +392,46 @@
             });
 
             servicesContainer.innerHTML = servicesHTML;
+        }
+
+        // فتح وإغلاق صندوق الدردشة
+        function toggleChat() {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.classList.toggle('active');
+        }
+
+        // إرسال الرسائل والتفاعل التجريبي مع البوت
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const messageText = inputField.value.trim();
+            if (messageText === "") return;
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // إضافة رسالة المستخدم
+            chatMessages.innerHTML += `<div class="message user">${messageText}</div>`;
+            inputField.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // رد تلقائي ذكي من البوت بعد جزء من الثانية
+            setTimeout(() => {
+                let botReply = "لقد تلقيت رسالتك! لمعظم هذه الخدمات والأوامر المتقدمة، يفضل الانتقال المباشر للبوت عبر زر 'تجربة البوت الآن' على تيليجرام.";
+                if (messageText.includes("مرحبا") || messageText.includes("هلا") || messageText.includes("السلام")) {
+                    botReply = "أهلاً بك يا صديقي في بوت سيراف (SERAF). تفضل، كيف يمكنني خدمتك؟";
+                } else if (messageText.includes("سعر") || messageText.includes("شراء")) {
+                    botReply = "يمكنك شراء API وتفعيل الخدمات المميزة مباشرة من خلال الأوامر داخل البوت على تيليجرام.";
+                }
+
+                chatMessages.innerHTML += `<div class="message bot">${botReply}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+        }
+
+        // إرسال الرسالة عبر الضغط على زر Enter
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
         }
 
         window.onload = renderBotWebsite;
