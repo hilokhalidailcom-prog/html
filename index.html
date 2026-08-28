@@ -71,7 +71,6 @@
             flex-wrap: wrap;
         }
 
-        /* زر تجربة البوت الأساسي وزر الدردشة */
         .btn-telegram, .btn-chat-toggle {
             display: inline-flex;
             align-items: center;
@@ -100,9 +99,9 @@
             position: fixed;
             bottom: 30px;
             left: 30px;
-            width: 350px;
+            width: 380px;
             max-width: 90vw;
-            height: 450px;
+            height: 480px;
             background-color: #1e293b;
             border: 2px solid #ef4444;
             border-radius: 20px;
@@ -156,6 +155,7 @@
             border-radius: 12px;
             font-size: 0.9rem;
             line-height: 1.4;
+            word-wrap: break-word;
         }
 
         .message.bot {
@@ -236,7 +236,7 @@
             padding-bottom: 50px;
         }
 
-        /* بطاقات الخدمات مع الأطراف والأطر الحمراء المتوهجة */
+        /* بطاقات الخدمات مع الأطر الحمراء المتوهجة */
         .service-card {
             background-color: #1e293b;
             border: 2px solid #ef4444;
@@ -295,7 +295,6 @@
         <h1 id="botName">سيراف - SERAF</h1>
         <p id="botDescription">استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.</p>
         
-        <!-- الأزرار (تجربة البوت + الدردشة مع البوت) -->
         <div class="header-buttons">
             <a href="https://t.me/Bot_Swirl_Bot" target="_blank" class="btn-telegram">
                 <i class="fa-brands fa-telegram"></i> تجربة البوت الآن
@@ -306,14 +305,14 @@
         </div>
     </header>
 
-    <!-- نافذة الدردشة المنبثقة -->
+    <!-- نافذة الدردشة المنبثقة المربوطة بالـ API الجديد -->
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">
-            <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف</span>
+            <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف (API)</span>
             <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="message bot">أهلاً بك! أنا بوت سيراف (SERAF)، كيف يمكنني مساعدتك اليوم؟ يمكنك كتابة أي استفسار أو تجربة أداء خدماتنا هنا.</div>
+            <div class="message bot">أهلاً بك! تم ربط الدردشة بنجاح مع سيرفر البوت. اكتب رسالتك وابدأ المحادثة.</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
@@ -334,12 +333,11 @@
         <p>جميع الحقوق محفوظة &copy; 2026 بوت سيراف (SERAF)</p>
     </footer>
 
-    <!-- كود الجافاسكريبت المطور -->
+    <!-- كود الجافاسكريبت المحدث للاتصال الفعلي بالـ API -->
     <script>
         const botData = {
             name: "سيراف (SERAF)",
             username: "Bot_Swirl_Bot",
-            description: "استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.",
             image: "https://i.ibb.co/Z6NwSjXy/e5fff26ebe26b84d49524c600795f2c0.jpg",
             services: [
                 { name: "المساعدة", icon: "fa-solid fa-hands-holding-child" },
@@ -370,11 +368,9 @@
         };
 
         function renderBotWebsite() {
-            // عرض الصورة
             const avatarContainer = document.getElementById('botAvatarContainer');
             avatarContainer.innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
 
-            // توليد بطاقات الخدمات
             const servicesContainer = document.getElementById('servicesContainer');
             let servicesHTML = '';
 
@@ -394,13 +390,12 @@
             servicesContainer.innerHTML = servicesHTML;
         }
 
-        // فتح وإغلاق صندوق الدردشة
         function toggleChat() {
             const chatContainer = document.getElementById('chatContainer');
             chatContainer.classList.toggle('active');
         }
 
-        // إرسال الرسائل والتفاعل التجريبي مع البوت
+        // دالة إرسال الرسائل والاتصال الفعلي بالـ API الخاص بك
         function sendMessage() {
             const inputField = document.getElementById('userInput');
             const messageText = inputField.value.trim();
@@ -408,26 +403,34 @@
 
             const chatMessages = document.getElementById('chatMessages');
 
-            // إضافة رسالة المستخدم
+            // إظهار رسالة المستخدم في الشات
             chatMessages.innerHTML += `<div class="message user">${messageText}</div>`;
             inputField.value = "";
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // رد تلقائي ذكي من البوت بعد جزء من الثانية
-            setTimeout(() => {
-                let botReply = "لقد تلقيت رسالتك! لمعظم هذه الخدمات والأوامر المتقدمة، يفضل الانتقال المباشر للبوت عبر زر 'تجربة البوت الآن' على تيليجرام.";
-                if (messageText.includes("مرحبا") || messageText.includes("هلا") || messageText.includes("السلام")) {
-                    botReply = "أهلاً بك يا صديقي في بوت سيراف (SERAF). تفضل، كيف يمكنني خدمتك؟";
-                } else if (messageText.includes("سعر") || messageText.includes("شراء")) {
-                    botReply = "يمكنك شراء API وتفعيل الخدمات المميزة مباشرة من خلال الأوامر داخل البوت على تيليجرام.";
-                }
-
+            // إرسال الطلب عبر fetch باستخدام الـ API والمفتاح الجديد
+            fetch('https://sftp.fr-node-35.katabump.com:2022/api/v1/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'seraph_60d3431abe1e06b81a9846c81f9ef747'
+                },
+                body: JSON.stringify({ message: messageText })
+            })
+            .then(res => res.json())
+            .then(data => {
+                // استخراج الرد من استجابة السيرفر (توقعنا أن يكون الرد داخل خصائص مثل reply أو response أو message، ويمكن تعديلها حسب شكل بيانات الـ API لديك)
+                const botReply = data.reply || data.response || data.message || JSON.stringify(data);
                 chatMessages.innerHTML += `<div class="message bot">${botReply}</div>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 600);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                chatMessages.innerHTML += `<div class="message bot" style="color: #fca5a5;">عذراً، حدث خطأ أثناء الاتصال بسيرفر البوت. تأكد من عمل السيرفر وصلاحية الاتصال.</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
         }
 
-        // إرسال الرسالة عبر الضغط على زر Enter
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
