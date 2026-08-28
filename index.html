@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوت  - SERAF Bot</title>
+    <title>بوت سيراف - SERAF Bot</title>
     <!-- استيراد الخطوط والأيقونات -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -305,7 +305,7 @@
             <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="message bot">أهلاً بك! يتم الآن اختبار الاتصال وإظهار تفاصيل الأخطاء إن وجدت.</div>
+            <div class="message bot">مرحباً بك في نظام IBA API! أرسل رسالتك للبدء.</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
@@ -373,7 +373,7 @@
             document.getElementById('chatContainer').classList.toggle('active');
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const inputField = document.getElementById('userInput');
             const messageText = inputField.value.trim();
             if (messageText === "") return;
@@ -383,35 +383,45 @@
             inputField.value = "";
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // ملاحظة هامة: بروتوكول sftp لا يعمل كـ API مباشر في المتصفح عبر fetch. 
-            // تأكد هل الرابط المطلوب هو http أو https على البورت 2022 وليس sftp.
-            const apiUrl = 'https://sftp.fr-node-35.katabump.com:2022/api/v1/chat'.replace('sftp://', 'https://');
+            // رابط الـ API الجديد مع مفتاح التوثيق الصحيح
+            const apiUrl = 'http://51.75.118.75:20367/api/v1/chat';
+            const apiKey = 'seraph_53d8bee5c1222464b1221ee1e1d23f7d';
 
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': 'seraph_60d3431abe1e06b81a9846c81f9ef747'
-                },
-                body: JSON.stringify({ message: messageText })
-            })
-            .then(async res => {
-                if (!res.ok) {
-                    throw new Error(`خطأ من السيرفر - كود الاستجابة: ${res.status} ${res.statusText}`);
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey
+                    },
+                    body: JSON.stringify({ message: messageText })
+                });
+
+                const responseText = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (e) {
+                    data = { rawText: responseText };
                 }
-                return res.json();
-            })
-            .then(data => {
-                const botReply = data.reply || data.response || data.message || JSON.stringify(data);
+
+                if (!response.ok) {
+                    throw new Error(`خطأ من السيرفر (${response.status}):\n${responseText || response.statusText}`);
+                }
+
+                const botReply = data.reply || data.response || data.message || data.rawText || JSON.stringify(data);
                 chatMessages.innerHTML += `<div class="message bot">${botReply}</div>`;
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            })
-            .catch(error => {
-                console.error('API Error:', error);
-                // إظهار رسالة الخطأ التقنية كاملة داخل الشات للمساعدة في الحل
-                chatMessages.innerHTML += `<div class="message bot" style="color: #fca5a5;">⚠️ تفاصيل الخطأ الكاملة:\n${error.message}\n\n(تأكد أن رابط السيرفر يدعم الـ HTTP/HTTPS وأن الـ CORS مفعل عليه).</div>`;
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
+
+            } catch (error) {
+                console.error('Error:', error);
+                chatMessages.innerHTML += `
+                    <div class="message bot" style="color: #fca5a5; border: 1px solid #ef4444; padding: 10px;">
+                        ⚠️ <strong>خطأ في الاتصال:</strong><br>
+                        ${error.message || error}
+                    </div>`;
+            }
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function handleKeyPress(event) {
