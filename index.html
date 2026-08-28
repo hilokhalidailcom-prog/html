@@ -301,7 +301,7 @@
 
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">
-            <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف (API)</span>
+            <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف (IBA API)</span>
             <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="chat-messages" id="chatMessages">
@@ -383,9 +383,9 @@
             inputField.value = "";
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // رابط الـ API الجديد مع مفتاح التوثيق الصحيح
+            // البيانات المحدثة والصحيحة للـ API والمفتاح الجديد
             const apiUrl = 'http://51.75.118.75:20367/api/v1/chat';
-            const apiKey = 'seraph_53d8bee5c1222464b1221ee1e1d23f7d';
+            const apiKey = 'seraph_e69f33a35c71601f958baa432f047781';
 
             try {
                 const response = await fetch(apiUrl, {
@@ -416,8 +416,8 @@
                 console.error('Error:', error);
                 chatMessages.innerHTML += `
                     <div class="message bot" style="color: #fca5a5; border: 1px solid #ef4444; padding: 10px;">
-                        ⚠️ <strong>خطأ في الاتصال:</strong><br>
-                        ${error.message || error}
+                        ⚠️ <strong>خطأ في الاتصال (Failed to fetch):</strong><br>
+                        تأكد أنك لا تفتح الصفحة عبر رابط <code>https</code> إذا كان السيرفر يعمل بـ <code>http</code>، أو أن السيرفر يسمح بطلبات CORS من المتصفحات.
                     </div>`;
             }
 
