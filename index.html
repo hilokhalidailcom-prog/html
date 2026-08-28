@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوت سيراف - SERAF Bot</title>
+    <!-- استيراد الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* الهيدر */
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            max-width: 800px;
+        }
+
+        .bot-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #38bdf8;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        /* زر تجربة البوت الأساسي */
+        .btn-telegram {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(2, 132, 199, 0.5);
+            background: linear-gradient(135deg, #0369a1, #075985);
+        }
+
+        /* قسم الخدمات */
+        .container {
+            max-width: 1100px;
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: #38bdf8;
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 10px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 50px;
+        }
+
+        .service-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+            background-color: #273548;
+            box-shadow: 0 10px 15px rgba(56, 189, 248, 0.1);
+        }
+
+        .service-icon {
+            font-size: 1.8rem;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-info h3 {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: #090d16;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #1e293b;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر ومعلومات البوت -->
+    <header>
+        <!-- صورة افتراضية تعبيرية أو استبدالها برابط صورة البوت الحقيقي -->
+        <div id="botAvatarContainer"></div>
+        <h1 id="botName">سيراف - SERAF</h1>
+        <p id="botDescription">استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.</p>
+        
+        <!-- زر تجربة البوت -->
+        <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank" class="btn-telegram">
+            <i class="fa-brands fa-telegram"></i> تجربة البوت الآن
+        </a>
+    </header>
+
+    <!-- قائمة الخدمات -->
+    <div class="container">
+        <h2 class="section-title">خدمات البوت المتاحة</h2>
+        <div class="services-grid" id="servicesContainer">
+            <!-- سيتم تعبئة الخدمات تلقائياً عبر JavaScript -->
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 بوت سيراف (SERAF)</p>
+    </footer>
+
+    <!-- كود الجافاسكريبت لربط البيانات وعرضها ديناميكياً -->
+    <script>
+        // بيانات البوت والخدمات المستخرجة من صور التيليجرام
+        const botData = {
+            name: "سيراف (SERAF)",
+            username: "SERAF_Bot", // استبدل بـ معرف بوتك الحقيقي
+            description: "استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.",
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&auto=format&fit=crop&q=80", // صورة تعبيرية دائرية
+            services: [
+                { name: "المساعدة", icon: "fa-solid fa-hands-holding-child" },
+                { name: "معلومات البوت", icon: "fa-solid fa-circle-info" },
+                { name: "الدعم الفني", icon: "fa-solid fa-headset" },
+                { name: "قناة التيليجرام", icon: "fa-solid fa-bullhorn" },
+                { name: "شراء API لخدمة AI", icon: "fa-solid fa-key" },
+                { name: "اختبار", icon: "fa-solid fa-bolt" },
+                { name: "🚀 SERAF", icon: "fa-solid fa-rocket" },
+                { name: "المستخدمين", icon: "fa-solid fa-users" },
+                { name: "بينج", icon: "fa-solid fa-signal" },
+                { name: "ازعاج", icon: "fa-solid fa-volume-high" },
+                { name: "بوت SERAF", icon: "fa-solid fa-bullseye" },
+                { name: "ارقام وهمية", icon: "fa-solid fa-mobile-screen-button" },
+                { name: "اسأل اغبى AI", icon: "fa-solid fa-robot" },
+                { name: "ضيفني لقربك", icon: "fa-solid fa-user-plus" },
+                { name: "العب XO", icon: "fa-solid fa-gamepad" },
+                { name: "العب شطرنج", icon: "fa-solid fa-chess-rook" },
+                { name: "سحب ملفات المواقع", icon: "fa-solid fa-folder-open" },
+                { name: "فك حظر رقم", icon: "fa-solid fa-lock-open" },
+                { name: "فك باند رقم", icon: "fa-solid fa-key" },
+                { name: "اكتشاف ثغرات", icon: "fa-solid fa-magnifying-glass" },
+                { name: "تشغيل بوت فرعي", icon: "fa-solid fa-rotate" },
+                { name: "حسابي", icon: "fa-solid fa-user-gear" },
+                { name: "تخمين كلمات المرور", icon: "fa-solid fa-shield-halved" },
+                { name: "توليد صوت من نص", icon: "fa-solid fa-music" }
+            ]
+        };
+
+        // دالة عرض البيانات في الصفحة عبر JavaScript
+        function renderBotWebsite() {
+            // عرض صورة البوت
+            const avatarContainer = document.getElementById('botAvatarContainer');
+            avatarContainer.innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
+
+            // تحديث رابط زر تجربة البوت بالمعرف الفعلي
+            const telegramBtn = document.querySelector('.btn-telegram');
+            telegramBtn.href = `https://t.me/${botData.username}`;
+
+            // توليد بطاقات الخدمات ديناميكياً
+            const servicesContainer = document.getElementById('servicesContainer');
+            let servicesHTML = '';
+
+            botData.services.forEach(service => {
+                servicesHTML += `
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="${service.icon}"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>${service.name}</h3>
+                        </div>
+                    </div>
+                `;
+            });
+
+            servicesContainer.innerHTML = servicesHTML;
+        }
+
+        // تنفيذ الدالة عند تحميل الصفحة
+        window.onload = renderBotWebsite;
+    </script>
+</body>
+</html>
