@@ -27,7 +27,6 @@
             position: relative;
         }
 
-        /* الهيدر */
         header {
             text-align: center;
             padding: 50px 20px 30px;
@@ -63,7 +62,6 @@
             margin-bottom: 25px;
         }
 
-        /* حاوية الأزرار الرئيسية في الأعلى */
         .header-buttons {
             display: flex;
             gap: 15px;
@@ -94,7 +92,6 @@
             background: linear-gradient(135deg, #dc2626, #b91c1c);
         }
 
-        /* صندوق الدردشة المنبثق */
         .chat-container {
             position: fixed;
             bottom: 30px;
@@ -150,12 +147,13 @@
         }
 
         .message {
-            max-width: 80%;
+            max-width: 85%;
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 0.9rem;
             line-height: 1.4;
             word-wrap: break-word;
+            white-space: pre-wrap;
         }
 
         .message.bot {
@@ -213,7 +211,6 @@
             background-color: #dc2626;
         }
 
-        /* قسم الخدمات */
         .container {
             max-width: 1100px;
             width: 90%;
@@ -236,7 +233,6 @@
             padding-bottom: 50px;
         }
 
-        /* بطاقات الخدمات مع الأطر الحمراء المتوهجة */
         .service-card {
             background-color: #1e293b;
             border: 2px solid #ef4444;
@@ -274,7 +270,6 @@
             color: #f1f5f9;
         }
 
-        /* الفوتر */
         footer {
             background-color: #090d16;
             width: 100%;
@@ -289,7 +284,6 @@
 </head>
 <body>
 
-    <!-- الهيدر ومعلومات البوت -->
     <header>
         <div id="botAvatarContainer"></div>
         <h1 id="botName">سيراف - SERAF</h1>
@@ -305,14 +299,13 @@
         </div>
     </header>
 
-    <!-- نافذة الدردشة المنبثقة المربوطة بالـ API الجديد -->
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">
             <span><i class="fa-solid fa-robot"></i> محادثة بوت سيراف (API)</span>
             <button class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="message bot">أهلاً بك! تم ربط الدردشة بنجاح مع سيرفر البوت. اكتب رسالتك وابدأ المحادثة.</div>
+            <div class="message bot">أهلاً بك! يتم الآن اختبار الاتصال وإظهار تفاصيل الأخطاء إن وجدت.</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
@@ -320,20 +313,15 @@
         </div>
     </div>
 
-    <!-- قائمة الخدمات -->
     <div class="container">
         <h2 class="section-title">خدمات البوت المتاحة</h2>
-        <div class="services-grid" id="servicesContainer">
-            <!-- سيتم تعبئة الخدمات تلقائياً عبر JavaScript -->
-        </div>
+        <div class="services-grid" id="servicesContainer"></div>
     </div>
 
-    <!-- الفوتر -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 بوت سيراف (SERAF)</p>
     </footer>
 
-    <!-- كود الجافاسكريبت المحدث للاتصال الفعلي بالـ API -->
     <script>
         const botData = {
             name: "سيراف (SERAF)",
@@ -368,48 +356,38 @@
         };
 
         function renderBotWebsite() {
-            const avatarContainer = document.getElementById('botAvatarContainer');
-            avatarContainer.innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
-
-            const servicesContainer = document.getElementById('servicesContainer');
+            document.getElementById('botAvatarContainer').innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
             let servicesHTML = '';
-
             botData.services.forEach(service => {
                 servicesHTML += `
                     <div class="service-card">
-                        <div class="service-icon">
-                            <i class="${service.icon}"></i>
-                        </div>
-                        <div class="service-info">
-                            <h3>${service.name}</h3>
-                        </div>
+                        <div class="service-icon"><i class="${service.icon}"></i></div>
+                        <div class="service-info"><h3>${service.name}</h3></div>
                     </div>
                 `;
             });
-
-            servicesContainer.innerHTML = servicesHTML;
+            document.getElementById('servicesContainer').innerHTML = servicesHTML;
         }
 
         function toggleChat() {
-            const chatContainer = document.getElementById('chatContainer');
-            chatContainer.classList.toggle('active');
+            document.getElementById('chatContainer').classList.toggle('active');
         }
 
-        // دالة إرسال الرسائل والاتصال الفعلي بالـ API الخاص بك
         function sendMessage() {
             const inputField = document.getElementById('userInput');
             const messageText = inputField.value.trim();
             if (messageText === "") return;
 
             const chatMessages = document.getElementById('chatMessages');
-
-            // إظهار رسالة المستخدم في الشات
             chatMessages.innerHTML += `<div class="message user">${messageText}</div>`;
             inputField.value = "";
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // إرسال الطلب عبر fetch باستخدام الـ API والمفتاح الجديد
-            fetch('https://sftp.fr-node-35.katabump.com:2022/api/v1/chat', {
+            // ملاحظة هامة: بروتوكول sftp لا يعمل كـ API مباشر في المتصفح عبر fetch. 
+            // تأكد هل الرابط المطلوب هو http أو https على البورت 2022 وليس sftp.
+            const apiUrl = 'https://sftp.fr-node-35.katabump.com:2022/api/v1/chat'.replace('sftp://', 'https://');
+
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -417,16 +395,21 @@
                 },
                 body: JSON.stringify({ message: messageText })
             })
-            .then(res => res.json())
+            .then(async res => {
+                if (!res.ok) {
+                    throw new Error(`خطأ من السيرفر - كود الاستجابة: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => {
-                // استخراج الرد من استجابة السيرفر (توقعنا أن يكون الرد داخل خصائص مثل reply أو response أو message، ويمكن تعديلها حسب شكل بيانات الـ API لديك)
                 const botReply = data.reply || data.response || data.message || JSON.stringify(data);
                 chatMessages.innerHTML += `<div class="message bot">${botReply}</div>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             })
             .catch(error => {
-                console.error('Error:', error);
-                chatMessages.innerHTML += `<div class="message bot" style="color: #fca5a5;">عذراً، حدث خطأ أثناء الاتصال بسيرفر البوت. تأكد من عمل السيرفر وصلاحية الاتصال.</div>`;
+                console.error('API Error:', error);
+                // إظهار رسالة الخطأ التقنية كاملة داخل الشات للمساعدة في الحل
+                chatMessages.innerHTML += `<div class="message bot" style="color: #fca5a5;">⚠️ تفاصيل الخطأ الكاملة:\n${error.message}\n\n(تأكد أن رابط السيرفر يدعم الـ HTTP/HTTPS وأن الـ CORS مفعل عليه).</div>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
         }
