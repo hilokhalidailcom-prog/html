@@ -37,17 +37,17 @@
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            border: 3px solid #38bdf8;
+            border: 3px solid #ef4444;
             object-fit: cover;
             margin-bottom: 20px;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.4);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
         header h1 {
@@ -62,26 +62,26 @@
             margin-bottom: 25px;
         }
 
-        /* زر تجربة البوت الأساسي */
+        /* زر تجربة البوت الأساسي (باللون الأحمر) */
         .btn-telegram {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             padding: 14px 35px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
             transition: all 0.3s ease;
         }
 
         .btn-telegram:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(2, 132, 199, 0.5);
-            background: linear-gradient(135deg, #0369a1, #075985);
+            box-shadow: 0 15px 25px rgba(239, 68, 68, 0.5);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
         }
 
         /* قسم الخدمات */
@@ -95,7 +95,7 @@
             text-align: center;
             margin-bottom: 30px;
             font-size: 1.8rem;
-            color: #38bdf8;
+            color: #ef4444;
             border-bottom: 2px solid #1e293b;
             padding-bottom: 10px;
         }
@@ -107,29 +107,30 @@
             padding-bottom: 50px;
         }
 
+        /* تعديل بطاقات الخدمات لتلفت الانتباه مع الأطراف الحمراء الملتفة */
         .service-card {
             background-color: #1e293b;
-            border: 1px solid #334155;
+            border: 2px solid #ef4444;
             padding: 20px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             gap: 15px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
         }
 
         .service-card:hover {
             transform: translateY(-5px);
-            border-color: #38bdf8;
+            border-color: #f87171;
             background-color: #273548;
-            box-shadow: 0 10px 15px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
         }
 
         .service-icon {
             font-size: 1.8rem;
-            color: #38bdf8;
-            background: rgba(56, 189, 248, 0.1);
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
             width: 55px;
             height: 55px;
             border-radius: 12px;
@@ -161,13 +162,12 @@
 
     <!-- الهيدر ومعلومات البوت -->
     <header>
-        <!-- صورة افتراضية تعبيرية أو استبدالها برابط صورة البوت الحقيقي -->
         <div id="botAvatarContainer"></div>
         <h1 id="botName">سيراف - SERAF</h1>
         <p id="botDescription">استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.</p>
         
-        <!-- زر تجربة البوت -->
-        <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank" class="btn-telegram">
+        <!-- زر تجربة البوت مع اليوزر الجديد -->
+        <a href="https://t.me/Bot_Swirl_Bot" target="_blank" class="btn-telegram">
             <i class="fa-brands fa-telegram"></i> تجربة البوت الآن
         </a>
     </header>
@@ -185,14 +185,13 @@
         <p>جميع الحقوق محفوظة &copy; 2026 بوت سيراف (SERAF)</p>
     </footer>
 
-    <!-- كود الجافاسكريبت لربط البيانات وعرضها ديناميكياً -->
+    <!-- كود الجافاسكريبت لعرض البيانات وتمرير الصورة المطلوبة -->
     <script>
-        // بيانات البوت والخدمات المستخرجة من صور التيليجرام
         const botData = {
             name: "سيراف (SERAF)",
-            username: "SERAF_Bot", // استبدل بـ معرف بوتك الحقيقي
+            username: "Bot_Swirl_Bot",
             description: "استمتع بتجربة فريدة مع بوتنا المتطور والمزود بأقوى الخدمات والأدوات الذكية.",
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&auto=format&fit=crop&q=80", // صورة تعبيرية دائرية
+            image: "https://i.ibb.co/Z6NwSjXy/e5fff26ebe26b84d49524c600795f2c0.jpg", // الرابط الجديد للصورة
             services: [
                 { name: "المساعدة", icon: "fa-solid fa-hands-holding-child" },
                 { name: "معلومات البوت", icon: "fa-solid fa-circle-info" },
@@ -221,17 +220,16 @@
             ]
         };
 
-        // دالة عرض البيانات في الصفحة عبر JavaScript
         function renderBotWebsite() {
-            // عرض صورة البوت
+            // عرض الصورة بالرابط الجديد
             const avatarContainer = document.getElementById('botAvatarContainer');
             avatarContainer.innerHTML = `<img src="${botData.image}" alt="${botData.name}" class="bot-avatar">`;
 
-            // تحديث رابط زر تجربة البوت بالمعرف الفعلي
+            // تحديث رابط زر تجربة البوت
             const telegramBtn = document.querySelector('.btn-telegram');
             telegramBtn.href = `https://t.me/${botData.username}`;
 
-            // توليد بطاقات الخدمات ديناميكياً
+            // توليد بطاقات الخدمات مع الأطر الحمراء
             const servicesContainer = document.getElementById('servicesContainer');
             let servicesHTML = '';
 
@@ -251,7 +249,6 @@
             servicesContainer.innerHTML = servicesHTML;
         }
 
-        // تنفيذ الدالة عند تحميل الصفحة
         window.onload = renderBotWebsite;
     </script>
 </body>
