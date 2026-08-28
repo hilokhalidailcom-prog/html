@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستخرج APK حقيقي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(100, 100, 255, 0.4);
+        }
+        .drop-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 25px;
+        }
+        .drop-zone:hover {
+            border-color: #a78bfa;
+            background: rgba(167, 139, 250, 0.1);
+            transform: scale(1.01);
+        }
+        .drop-zone p {
+            color: #c4b5fd;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+        .drop-zone .icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #a78bfa;
+        }
+        .file-name {
+            color: #e0e7ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .extract-btn {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            border: none;
+            color: white;
+            padding: 16px 30px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            margin: 10px 0 20px 0;
+        }
+        .extract-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(79, 70, 229, 0.6);
+        }
+        .extract-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .result-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: none;
+        }
+        .result-box.active {
+            display: block;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .result-header h3 {
+            color: #c4b5fd;
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+        .file-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            direction: ltr;
+            text-align: left;
+        }
+        .file-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .file-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .file-list::-webkit-scrollbar-thumb {
+            background: #7c3aed;
+            border-radius: 10px;
+        }
+        .file-item {
+            color: #e0e7ff;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        .file-item .size {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 10px;
+            border-radius: 30px;
+            white-space: nowrap;
+        }
+        .download-btn {
+            background: #10b981;
+            border: none;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .download-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(16, 185, 129, 0.5);
+        }
+        .download-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status-msg {
+            color: #fbbf24;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            min-height: 30px;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar.active {
+            display: block;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 25px 15px; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 مستخرج APK حقيقي</h1>
+        
+        <div class="drop-zone" id="dropZone">
+            <div class="icon">📁</div>
+            <p>اسحب ملف APK هنا أو اضغط للاختيار</p>
+            <input type="file" id="fileInput" accept=".apk">
+            <div id="fileName" class="file-name">لم يتم اختيار ملف</div>
+        </div>
+
+        <button class="extract-btn" id="extractBtn" disabled>🔍 استخراج الملفات</button>
+
+        <div id="statusMsg" class="status-msg"></div>
+        
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-header">
+                <h3>📄 الملفات المستخرجة</h3>
+                <span style="color:#94a3b8; font-size:0.85rem;" id="fileCount">0 ملف</span>
+            </div>
+            <div class="file-list" id="fileList"></div>
+            <button class="download-btn" id="downloadBtn" disabled>
+                ⬇️ تنزيل جميع الملفات (ZIP)
+            </button>
+        </div>
+        <div class="footer">يستخدم JSZip لفك ضغط APK الحقيقي</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        (function() {
+            // ---------- العناصر ----------
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const fileName = document.getElementById('fileName');
+            const extractBtn = document.getElementById('extractBtn');
+            const statusMsg = document.getElementById('statusMsg');
+            const resultBox = document.getElementById('resultBox');
+            const fileList = document.getElementById('fileList');
+            const fileCount = document.getElementById('fileCount');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+
+            let selectedFile = null;
+            let extractedFiles = [];
+            let zipBlob = null;
+
+            // ---------- تحديث واجهة الملف المختار ----------
+            function updateFileUI(file) {
+                if (file) {
+                    fileName.textContent = `📎 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                    extractBtn.disabled = false;
+                    statusMsg.textContent = '';
+                } else {
+                    fileName.textContent = 'لم يتم اختيار ملف';
+                    extractBtn.disabled = true;
+                    resultBox.classList.remove('active');
+                    downloadBtn.disabled = true;
+                    extractedFiles = [];
+                    zipBlob = null;
+                    progressBar.classList.remove('active');
+                }
+            }
+
+            // ---------- معالجة الملف المختار ----------
+            function handleFile(file) {
+                if (!file || !file.name.toLowerCase().endsWith('.apk')) {
+                    statusMsg.textContent = '⚠️ الرجاء اختيار ملف APK صالح';
+                    selectedFile = null;
+                    updateFileUI(null);
+                    return;
+                }
+                selectedFile = file;
+                updateFileUI(file);
+            }
+
+            // ---------- أحداث السحب والإفلات ----------
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = '#a78bfa';
+                dropZone.style.background = 'rgba(167, 139, 250, 0.15)';
+            });
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.style.borderColor = 'rgba(255,255,255,0.4)';
+                dropZone.style.background = 'rgba(255,255,255,0.05)';
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = 'rgba(255,255,255,0.4)';
+                dropZone.style.background = 'rgba(255,255,255,0.05)';
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                    const dt = new DataTransfer();
+                    dt.items.add(files[0]);
+                    fileInput.files = dt.files;
+                }
+            });
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                if (fileInput.files.length > 0) {
+                    handleFile(fileInput.files[0]);
+                } else {
+                    selectedFile = null;
+                    updateFileUI(null);
+                }
+            });
+
+            // ---------- استخراج حقيقي من APK باستخدام JSZip ----------
+            function extractAPK(apkFile) {
+                return new Promise((resolve, reject) => {
+                    statusMsg.innerHTML = '⏳ جاري قراءة ملف APK... <span class="loading-spinner"></span>';
+                    extractBtn.disabled = true;
+                    progressBar.classList.add('active');
+                    progressFill.style.width = '10%';
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            progressFill.style.width = '30%';
+                            statusMsg.innerHTML = '⏳ جاري فك الضغط... <span class="loading-spinner"></span>';
+                            
+                            const arrayBuffer = e.target.result;
+                            JSZip.loadAsync(arrayBuffer)
+                                .then(function(zip) {
+                                    progressFill.style.width = '60%';
+                                    const files = [];
+                                    const filePromises = [];
+
+                                    zip.forEach(function(relativePath, zipEntry) {
+                                        if (!zipEntry.dir) {
+                                            const promise = zipEntry.async('string')
+                                                .then(function(content) {
+                                                    files.push({
+                                                        name: relativePath,
+                                                        content: content,
+                                                        size: zipEntry.uncompressedSize || content.length
+                                                    });
+                                                })
+                                                .catch(function() {
+                                                    // لو فشل كـ string جرب كـ blob
+                                                    return zipEntry.async('blob')
+                                                        .then(function(blob) {
+                                                            return new Promise((resolveBlob) => {
+                                                                const readerBlob = new FileReader();
+                                                                readerBlob.onload = function() {
+                                                                    files.push({
+                                                                        name: relativePath,
+                                                                        content: readerBlob.result,
+                                                                        size: blob.size
+                                                                    });
+                                                                    resolveBlob();
+                                                                };
+                                                                readerBlob.readAsText(blob);
+                                                            });
+                                                        });
+                                                });
+                                            filePromises.push(promise);
+                                        }
+                                    });
+
+                                    Promise.all(filePromises)
+                                        .then(function() {
+                                            progressFill.style.width = '90%';
+                                            extractedFiles = files;
+                                            zipBlob = null;
+                                            displayExtractedFiles(files);
+                                            statusMsg.innerHTML = `✅ تم الاستخراج بنجاح! (${files.length} ملف)`;
+                                            extractBtn.disabled = false;
+                                            progressFill.style.width = '100%';
+                                            setTimeout(() => {
+                                                progressBar.classList.remove('active');
+                                            }, 500);
+                                            resolve(files);
+                                        })
+                                        .catch(function(err) {
+                                            reject(err);
+                                        });
+                                })
+                                .catch(function(err) {
+                                    reject(err);
+                                });
+                        } catch (err) {
+                            reject(err);
+                        }
+                    };
+
+                    reader.onerror = function() {
+                        reject(new Error('فشل قراءة الملف'));
+                    };
+
+                    reader.readAsArrayBuffer(apkFile);
+                });
+            }
+
+            // ---------- عرض الملفات المستخرجة ----------
+            function displayExtractedFiles(files) {
+                fileList.innerHTML = '';
+                if (files.length === 0) {
+                    fileList.innerHTML = '<div class="file-item" style="justify-content:center; color:#94a3b8;">لا توجد ملفات</div>';
+                    fileCount.textContent = '0 ملف';
+                    downloadBtn.disabled = true;
+                    resultBox.classList.add('active');
+                    return;
+                }
+
+                // عرض أول 500 ملف فقط (لأداء أفضل)
+                const displayFiles = files.slice(0, 500);
+                displayFiles.forEach(f => {
+                    const div = document.createElement('div');
+                    div.className = 'file-item';
+                    const sizeStr = f.size < 1024 ? `${f.size} B` : 
+                                   f.size < 1048576 ? `${(f.size/1024).toFixed(1)} KB` : 
+                                   `${(f.size/1048576).toFixed(2)} MB`;
+                    div.innerHTML = `<span>📄 ${f.name}</span><span class="size">${sizeStr}</span>`;
+                    fileList.appendChild(div);
+                });
+
+                if (files.length > 500) {
+                    const div = document.createElement('div');
+                    div.className = 'file-item';
+                    div.style.justifyContent = 'center';
+                    div.style.color = '#94a3b8';
+                    div.textContent = `... و ${files.length - 500} ملف آخر`;
+                    fileList.appendChild(div);
+                }
+
+                fileCount.textContent = `${files.length} ملف`;
+                downloadBtn.disabled = false;
+                resultBox.classList.add('active');
+            }
+
+            // ---------- إنشاء ZIP وتنزيله ----------
+            function createAndDownloadZip() {
+                if (extractedFiles.length === 0) {
+                    statusMsg.textContent = '⚠️ لا توجد ملفات للتنزيل';
+                    return;
+                }
+
+                statusMsg.innerHTML = '⏳ جاري إنشاء ملف ZIP... <span class="loading-spinner"></span>';
+                downloadBtn.disabled = true;
+                progressBar.classList.add('active');
+                progressFill.style.width = '0%';
+
+                const zip = new JSZip();
+                const total = extractedFiles.length;
+                let processed = 0;
+
+                // إضافة الملفات إلى ZIP
+                extractedFiles.forEach((f, index) => {
+                    try {
+                        zip.file(f.name, f.content);
+                    } catch (e) {
+                        // محاولة كـ blob
+                        try {
+                            const blob = new Blob([f.content]);
+                            zip.file(f.name, blob);
+                        } catch (e2) {
+                            console.warn('فشل إضافة الملف:', f.name);
+                        }
+                    }
+                    processed++;
+                    if (processed % 50 === 0 || processed === total) {
+                        const percent = Math.round((processed / total) * 100);
+                        progressFill.style.width = Math.min(percent, 95) + '%';
+                    }
+                });
+
+                progressFill.style.width = '100%';
+                
+                zip.generateAsync({ 
+                    type: 'blob',
+                    compression: 'DEFLATE',
+                    compressionOptions: { level: 6 }
+                })
+                .then((blob) => {
+                    zipBlob = blob;
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    const baseName = selectedFile ? selectedFile.name.replace('.apk', '') : 'extracted';
+                    link.download = `${baseName}_extracted.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+                    
+                    statusMsg.innerHTML = `✅ تم التنزيل بنجاح! (${(blob.size / 1024 / 1024).toFixed(2)} MB)`;
+                    downloadBtn.disabled = false;
+                    setTimeout(() => {
+                        progressBar.classList.remove('active');
+                    }, 800);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    statusMsg.textContent = '❌ حدث خطأ أثناء إنشاء ZIP';
+                    downloadBtn.disabled = false;
+                    progressBar.classList.remove('active');
+                });
+            }
+
+            // ---------- حدث زر الاستخراج ----------
+            extractBtn.addEventListener('click', () => {
+                if (!selectedFile) {
+                    statusMsg.textContent = '⚠️ الرجاء اختيار ملف APK أولاً';
+                    return;
+                }
+                resultBox.classList.remove('active');
+                downloadBtn.disabled = true;
+                extractedFiles = [];
+                zipBlob = null;
+                progressFill.style.width = '0%';
+
+                extractAPK(selectedFile)
+                    .catch((err) => {
+                        console.error(err);
+                        statusMsg.innerHTML = '❌ فشل الاستخراج: ' + err.message;
+                        extractBtn.disabled = false;
+                        progressBar.classList.remove('active');
+                    });
+            });
+
+            // ---------- حدث زر التنزيل ----------
+            downloadBtn.addEventListener('click', createAndDownloadZip);
+
+            // ---------- تهيئة ----------
+            updateFileUI(null);
+        })();
+    </script>
+</body>
+</html>
