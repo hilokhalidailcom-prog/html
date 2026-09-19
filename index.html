@@ -9,36 +9,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-        body { font-family: 'Cairo', sans-serif; }
+        body { font-family: 'Cairo', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col" onload="checkUrlHash()">
+<body class="min-h-screen flex flex-col" onload="checkUrlHash()">
 
     <!-- الشريط العلوي (الهيدر) -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <h1 class="text-2xl font-bold text-blue-600 cursor-pointer" onclick="showPage('home')">مشاركتي</h1>
+    <header class="bg-[#0b0f19] border-b border-gray-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center gap-4">
+            
+            <!-- عنوان الموقع وصورة الملف الشخصي المحددة -->
+            <div class="flex items-center justify-between w-full max-w-md px-2">
+                <h1 class="text-2xl font-bold text-white tracking-wide">مشاركتي</h1>
+                <div class="w-14 h-14 rounded-full border-2 border-emerald-400 overflow-hidden shadow-lg shadow-emerald-900/50 flex items-center justify-center bg-gray-800">
+                    <!-- الصورة الموجودة في المجلد الرئيسي واسمها jot (عدل الامتداد إن لم تكن png مثل jot.jpg) -->
+                    <img src="jot.png" alt="صورة الملف الشخصي" class="w-full h-full object-cover" onerror="this.src='jot.jpg'">
+                </div>
+            </div>
             
             <!-- خانة البحث -->
-            <div class="flex items-center w-full md:w-auto max-w-md bg-gray-100 rounded-lg px-3 py-1 border border-gray-200">
-                <input type="text" id="search-input" placeholder="ابحث عن اسم المشروع..." class="bg-transparent border-none outline-none w-full text-sm py-1">
-                <button onclick="searchProject()" class="text-gray-500 hover:text-blue-600 px-2 transition">
+            <div class="flex items-center w-full max-w-md bg-gray-900 rounded-xl px-4 py-2 border border-emerald-500/40 shadow-inner">
+                <input type="text" id="search-input" placeholder="ابحث عن اسم المشروع..." class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-gray-400">
+                <button onclick="searchProject()" class="text-emerald-400 hover:text-emerald-300 px-2 transition">
                     <i class="fa-solid fa-search"></i>
                 </button>
             </div>
 
-            <!-- الأزرار الرئيسية -->
-            <div class="flex flex-wrap gap-2">
-                <button onclick="showPage('browse')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow text-sm">
+            <!-- الأزرار الرئيسية بتصميم مميز -->
+            <div class="flex flex-wrap justify-center gap-2 w-full max-w-md">
+                <button onclick="showPage('browse')" class="bg-transparent hover:bg-emerald-950/40 text-emerald-400 border border-emerald-500/60 px-4 py-2 rounded-xl font-semibold transition text-sm shadow-sm">
                     تصفح المشاريع
                 </button>
-                <button onclick="showPage('publish')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow text-sm">
+                <button onclick="showPage('publish')" class="bg-transparent hover:bg-emerald-950/40 text-emerald-400 border border-emerald-500/60 px-4 py-2 rounded-xl font-semibold transition text-sm shadow-sm">
                     نشر ملفات
                 </button>
-                <button onclick="showPage('text-publish')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow text-sm">
+                <button onclick="showPage('text-publish')" class="bg-transparent hover:bg-emerald-950/40 text-emerald-400 border border-emerald-500/60 px-4 py-2 rounded-xl font-semibold transition text-sm shadow-sm">
                     رفع نص
                 </button>
-                <button onclick="showPage('code-publish')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow text-sm">
+                <button onclick="showPage('code-publish')" class="bg-transparent hover:bg-emerald-950/40 text-emerald-400 border border-emerald-500/60 px-4 py-2 rounded-xl font-semibold transition text-sm shadow-sm">
                     نشر كود
                 </button>
             </div>
@@ -50,30 +58,29 @@
 
         <!-- 1. الصفحة الرئيسية وشرح الموقع -->
         <section id="home-page" class="page">
-            <div class="text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-10 rounded-2xl shadow-lg mb-10">
-                <h2 class="text-3xl font-bold mb-4">مرحباً بك في منصة مشاركة الملفات والأكواد</h2>
-                <p class="text-lg opacity-90 max-w-2xl mx-auto mb-6">ارفع ملفاتك، نصوصك، أو أكوادك البرمجية، وشاركها مع الآخرين مع إمكانية التعديل والمعاينة المباشرة.</p>
-                
-                <button onclick="showPage('api-info')" class="bg-white text-blue-700 hover:bg-blue-50 px-6 py-3 rounded-xl font-bold transition shadow-md inline-flex items-center gap-2 text-sm">
-                    <i class="fa-solid fa-network-wired"></i> رابط الرفع الخارجي (API)
-                </button>
-            </div>
+            <div class="bg-gray-900 border border-emerald-500/30 text-white p-8 rounded-2xl shadow-xl mb-10 relative overflow-hidden">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">نشر ملفات</h2>
+                        <p class="text-xs text-gray-400">ارفع أي ملف (عادي أو مضغوط ZIP) واحصل على رابط تنزيل مباشر.</p>
+                    </div>
+                </div>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
-                    <div class="text-blue-600 text-3xl mb-3"><i class="fa-solid fa-folder-plus"></i></div>
-                    <h3 class="text-xl font-bold mb-2">نشر ملفات</h3>
-                    <p class="text-gray-600 text-sm">ارفع أي ملف (عادي أو مضغوط ZIP) واحصل على رابط تنزيل مباشر.</p>
+                <div class="text-center my-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">مرحباً بك في منصة مشاركة الملفات والأكواد</h2>
+                    <p class="text-sm text-gray-300 max-w-lg mx-auto mb-6">ارفع ملفاتك، نصوصك، أو أكوادك البرمجية وشاركها مع الآخرين مع إمكانية التعديل والمعاينة المباشرة.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
-                    <div class="text-emerald-600 text-3xl mb-3"><i class="fa-solid fa-file-lines"></i></div>
-                    <h3 class="text-xl font-bold mb-2">رفع نص</h3>
-                    <p class="text-gray-600 text-sm">شارك النصوص والملاحظات ليطلع عليها الآخرون ويعدلوها محلياً لديهم.</p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-800 pt-6">
+                    <button onclick="showPage('api-info')" class="bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/40 px-5 py-2.5 rounded-xl font-bold transition shadow text-xs inline-flex items-center gap-2">
+                        <i class="fa-solid fa-network-wired"></i> رابط الرفع الخارجي (API)
+                    </button>
+                    <div class="text-emerald-400 text-2xl"><i class="fa-solid fa-code"></i></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
-                    <div class="text-purple-600 text-3xl mb-3"><i class="fa-solid fa-code"></i></div>
-                    <h3 class="text-xl font-bold mb-2">نشر كود</h3>
-                    <p class="text-gray-600 text-sm">اكتب أكوادك (مثل HTML) عبر محرر متكامل ومعاينتها بضغطة زر.</p>
+
+                <div class="mt-6 pt-4 border-t border-gray-800">
+                    <h3 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">نشر كود</h3>
+                    <p class="text-xs text-gray-400">اكتب أكوادك (مثل HTML) عبر محرر متكامل ومعاينتها بضغطة زر.</p>
                 </div>
             </div>
         </section>
@@ -81,8 +88,8 @@
         <!-- صفحة تصفح المشاريع -->
         <section id="browse-page" class="page hidden">
             <div class="mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">تصفح المشاريع المرفوعة</h2>
-                <p class="text-sm text-gray-500">استعرض كافة المشاريع المضافة مسبقاً على المنصة:</p>
+                <h2 class="text-2xl font-bold text-white mb-2">تصفح المشاريع المرفوعة</h2>
+                <p class="text-sm text-gray-400">استعرض كافة المشاريع المضافة مسبقاً على المنصة:</p>
             </div>
             <div id="browse-projects-container" class="grid gap-4">
                 <!-- سيتم تعبئة المشاريع ديناميكياً هنا -->
@@ -91,24 +98,24 @@
 
         <!-- صفحة معلومات ورابط الـ API -->
         <section id="api-info-page" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold mb-4 text-gray-800 text-center"><i class="fa-solid fa-network-wired text-blue-600 ml-2"></i> رابط الرفع البرمجي (API)</h2>
-                <p class="text-gray-600 text-sm mb-4">يمكنك استخدام الرابط التالي لإرسال الملفات واسم المشروع برمجياً ليتم إنشاؤه وتوليد رابطه مباشرة:</p>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4 text-white text-center"><i class="fa-solid fa-network-wired text-emerald-400 ml-2"></i> رابط الرفع البرمجي (API)</h2>
+                <p class="text-gray-300 text-sm mb-4">يمكنك استخدام الرابط التالي لإرسال الملفات واسم المشروع برمجياً ليتم إنشاؤه وتوليد رابطه مباشرة:</p>
                 
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">رابط الـ API (Endpoint):</label>
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">رابط الـ API (Endpoint):</label>
                     <div class="flex gap-2">
-                        <input type="text" id="api-endpoint-url" readonly class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600 font-mono">
-                        <button onclick="copyApiEndpoint()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition text-sm">نسخ</button>
+                        <input type="text" id="api-endpoint-url" readonly class="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-300 font-mono">
+                        <button onclick="copyApiEndpoint()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold transition text-sm">نسخ</button>
                     </div>
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">طريقة الإرسال (JSON Payload مثال):</label>
-                    <pre class="bg-gray-900 text-green-400 p-4 rounded-xl text-xs overflow-x-auto font-mono" dir="ltr">
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">طريقة الإرسال (JSON Payload مثال):</label>
+                    <pre class="bg-gray-950 text-emerald-400 p-4 rounded-xl text-xs overflow-x-auto font-mono border border-gray-800" dir="ltr">
 {
   "projectName": "مشروعي الجديد",
-  "description": "وصف المشروع الاختياري أو الإجباري",
+  "description": "وصف المشروع الإجباري",
   "files": [
     {
       "name": "index.html",
@@ -119,18 +126,18 @@
                     </pre>
                 </div>
 
-                <button onclick="showPage('home')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold transition">العودة للرئيسية</button>
+                <button onclick="showPage('home')" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-lg font-semibold transition">العودة للرئيسية</button>
             </div>
         </section>
 
         <!-- 2. صفحة رفع الملفات -->
         <section id="publish-page" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-xl mx-auto text-center">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">رفع الملفات</h2>
-                <div class="border-2 border-dashed border-blue-300 rounded-xl p-10 bg-blue-50/50 hover:bg-blue-50 transition cursor-pointer" onclick="document.getElementById('file-input').click()">
-                    <i class="fa-solid fa-cloud-arrow-up text-5xl text-blue-500 mb-4"></i>
-                    <p class="text-lg font-semibold text-gray-700">رفع ملف (يدعم المضغوطة والعادية)</p>
-                    <p class="text-sm text-gray-500 mt-1">انقر هنا لاختيار الملفات من جهازك</p>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-xl mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-6 text-white">رفع الملفات</h2>
+                <div class="border-2 border-dashed border-emerald-500/40 rounded-xl p-10 bg-gray-950/50 hover:bg-gray-950 transition cursor-pointer" onclick="document.getElementById('file-input').click()">
+                    <i class="fa-solid fa-cloud-arrow-up text-5xl text-emerald-400 mb-4"></i>
+                    <p class="text-lg font-semibold text-gray-200">رفع ملف (يدعم المضغوطة والعادية)</p>
+                    <p class="text-sm text-gray-400 mt-1">انقر هنا لاختيار الملفات من جهازك</p>
                     <input type="file" id="file-input" multiple class="hidden" onchange="handleFilesSelected(this)">
                 </div>
             </div>
@@ -138,81 +145,81 @@
 
         <!-- 3. نافذة إدخال اسم ووصف المشروع (إجباري) -->
         <section id="project-name-modal" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-md mx-auto">
-                <h2 class="text-xl font-bold mb-4 text-gray-800 text-center">تفاصيل المشروع</h2>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-md mx-auto">
+                <h2 class="text-xl font-bold mb-4 text-white text-center">تفاصيل المشروع</h2>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">اسم المشروع:</label>
-                    <input type="text" id="project-name-input" placeholder="اكتب اسم المشروع هنا..." class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">اسم المشروع:</label>
+                    <input type="text" id="project-name-input" placeholder="اكتب اسم المشروع هنا..." class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">وصف المشروع (إجباري):</label>
-                    <textarea id="project-desc-input" rows="3" placeholder="اكتب وصفاً مختصراً للمشروع..." class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></textarea>
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">وصف المشروع (إجباري):</label>
+                    <textarea id="project-desc-input" rows="3" placeholder="اكتب وصفاً مختصراً للمشروع..." class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></textarea>
                 </div>
-                <button onclick="saveProject()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">حفظ وإنشاء الرابط</button>
+                <button onclick="saveProject()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold transition">حفظ وإنشاء الرابط</button>
             </div>
         </section>
 
-        <!-- 4. صفحة نشر كود (المحرر الجديد) -->
+        <!-- 4. صفحة نشر كود -->
         <section id="code-publish-page" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">محرر الأكواد (نشر كود)</h2>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4 text-center text-white">محرر الأكواد (نشر كود)</h2>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">ألصق الكود هنا:</label>
-                    <textarea id="code-content-input" rows="10" placeholder="اكتب أو ألصق كود الـ HTML أو البرمجة هنا..." class="w-full font-mono bg-gray-900 text-green-400 border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"></textarea>
+                    <label class="block text-sm font-semibold text-gray-300 mb-2">ألصق الكود هنا:</label>
+                    <textarea id="code-content-input" rows="10" placeholder="اكتب أو ألصق كود الـ HTML أو البرمجة هنا..." class="w-full font-mono bg-gray-950 text-emerald-400 border border-gray-700 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></textarea>
                 </div>
-                <button onclick="proceedToCodeMeta()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition shadow">التالي (تسمية الملف)</button>
+                <button onclick="proceedToCodeMeta()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold transition shadow">التالي (تسمية الملف)</button>
             </div>
         </section>
 
-        <!-- نافذة إدخال اسم الملف، اسم المشروع، والوصف لنشر الكود -->
+        <!-- نافذة إدخال تفاصيل الكود -->
         <section id="code-meta-modal" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-md mx-auto">
-                <h2 class="text-xl font-bold mb-4 text-gray-800 text-center">تفاصيل الكود المنشور</h2>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-md mx-auto">
+                <h2 class="text-xl font-bold mb-4 text-white text-center">تفاصيل الكود المنشور</h2>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">اسم الملف (مثال: index.html):</label>
-                    <input type="text" id="code-filename-input" placeholder="index.html" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">اسم الملف (مثال: index.html):</label>
+                    <input type="text" id="code-filename-input" placeholder="index.html" class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">اسم المشروع:</label>
-                    <input type="text" id="code-projectname-input" placeholder="اكتب اسم المشروع..." class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">اسم المشروع:</label>
+                    <input type="text" id="code-projectname-input" placeholder="اكتب اسم المشروع..." class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">وصف المشروع (إجباري):</label>
-                    <textarea id="code-projectdesc-input" rows="3" placeholder="اكتب وصفاً للمشروع..." class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"></textarea>
+                    <label class="block text-sm font-semibold text-gray-300 mb-1">وصف المشروع (إجباري):</label>
+                    <textarea id="code-projectdesc-input" rows="3" placeholder="اكتب وصفاً للمشروع..." class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></textarea>
                 </div>
-                <button onclick="saveCodeProject()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition">حفظ</button>
+                <button onclick="saveCodeProject()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold transition">حفظ</button>
             </div>
         </section>
 
         <!-- 5. صفحة عرض تفاصيل المشروع -->
         <section id="project-view-page" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-3xl mx-auto">
-                <div class="flex justify-between items-center mb-6 border-b pb-3">
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-3xl mx-auto">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-3">
                     <div>
-                        <h2 id="display-project-name" class="text-2xl font-bold text-blue-600">مشروع: [اسم المشروع]</h2>
-                        <p id="display-project-desc" class="text-sm text-gray-600 mt-1"></p>
+                        <h2 id="display-project-name" class="text-2xl font-bold text-emerald-400">مشروع: [اسم المشروع]</h2>
+                        <p id="display-project-desc" class="text-sm text-gray-400 mt-1"></p>
                     </div>
                     <div id="preview-btn-container"></div>
                 </div>
                 
                 <div class="mb-6">
-                    <h3 class="font-semibold text-gray-700 mb-2">ملفات المشروع (اضغط على الملف لعرضه وتعديله محلياً):</h3>
+                    <h3 class="font-semibold text-gray-300 mb-2">ملفات المشروع (اضغط على الملف لعرضه وتعديله محلياً):</h3>
                     <div id="files-list" class="grid gap-2"></div>
                 </div>
 
-                <div id="file-editor-container" class="mb-6 hidden bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div id="file-editor-container" class="mb-6 hidden bg-gray-950 p-4 rounded-xl border border-gray-800">
                     <div class="flex justify-between items-center mb-2">
-                        <span id="active-file-title" class="font-bold text-sm text-gray-700"></span>
-                        <span class="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded border border-amber-200">تعديل محلي (يخصك وحدك)</span>
+                        <span id="active-file-title" class="font-bold text-sm text-gray-200"></span>
+                        <span class="text-xs text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-800/50">تعديل محلي (يخصك وحدك)</span>
                     </div>
-                    <textarea id="active-file-content" rows="8" class="w-full font-mono text-sm bg-white border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="saveLocalEdit()"></textarea>
+                    <textarea id="active-file-content" rows="8" class="w-full font-mono text-sm bg-gray-900 text-emerald-300 border border-gray-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500" oninput="saveLocalEdit()"></textarea>
                 </div>
 
                 <div class="mb-6">
-                    <h3 class="font-semibold text-gray-700 mb-2">الرابط حق المشروع:</h3>
+                    <h3 class="font-semibold text-gray-300 mb-2">الرابط حق المشروع:</h3>
                     <div class="flex gap-2">
-                        <input type="text" id="project-link-input" readonly class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600">
-                        <button onclick="copyProjectLink()" class="bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg font-semibold transition whitespace-nowrap">نسخ</button>
+                        <input type="text" id="project-link-input" readonly class="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-400">
+                        <button onclick="copyProjectLink()" class="bg-gray-800 hover:bg-gray-700 text-white px-5 py-2 rounded-lg font-semibold transition whitespace-nowrap">نسخ</button>
                     </div>
                 </div>
 
@@ -224,10 +231,10 @@
 
         <!-- 6. صفحة رفع نص -->
         <section id="text-publish-page" class="page hidden">
-            <div class="bg-white p-8 rounded-2xl shadow-md max-w-xl mx-auto">
-                <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">رفع نص</h2>
+            <div class="bg-gray-900 border border-emerald-500/30 p-8 rounded-2xl shadow-md max-w-xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4 text-center text-white">رفع نص</h2>
                 <div class="mb-4">
-                    <textarea id="text-content-input" rows="8" placeholder="هنا خانه تحط فيه النص الى تبي ترفعه..." class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                    <textarea id="text-content-input" rows="8" placeholder="هنا خانه تحط فيه النص الى تبي ترفعه..." class="w-full bg-gray-950 border border-gray-700 text-white rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                 </div>
                 <button onclick="publishText()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold transition shadow">نشر</button>
             </div>
@@ -256,7 +263,6 @@
             localStorage.setItem('projects_db', JSON.stringify(db));
         }
 
-        // استقبال طلبات API
         window.addEventListener('message', function(event) {
             if (event.data && event.data.action === 'createProjectAPI') {
                 handleExternalAPIUpload(event.data.data);
@@ -289,7 +295,6 @@
             }
         }
 
-        // التنقل بين الصفحات
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
             
@@ -331,29 +336,28 @@
             }
         }
 
-        // عرض المشاريع في صفحة التصفح بالشكل المطلوب
         function renderBrowseProjects() {
             const container = document.getElementById('browse-projects-container');
             container.innerHTML = '';
             let database = getDatabase();
 
             if (database.length === 0) {
-                container.innerHTML = `<div class="bg-white p-6 rounded-xl shadow text-center text-gray-500">لا توجد مشاريع مرفوعة حتى الآن.</div>`;
+                container.innerHTML = `<div class="bg-gray-900 border border-gray-800 p-6 rounded-xl shadow text-center text-gray-400">لا توجد مشاريع مرفوعة حتى الآن.</div>`;
                 return;
             }
 
             database.forEach(proj => {
                 let fileNames = proj.files.map(f => f.name).join(', ');
                 let div = document.createElement('div');
-                div.className = 'bg-white p-6 rounded-xl shadow border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4';
+                div.className = 'bg-gray-900 border border-emerald-500/30 p-6 rounded-xl shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4';
                 div.innerHTML = `
                     <div class="space-y-1 w-full">
-                        <h3 class="text-xl font-bold text-blue-600">${proj.name}</h3>
-                        <p class="text-sm text-gray-600"><span class="font-semibold text-gray-700">اسم الملف |</span> ${fileNames}</p>
-                        <p class="text-sm text-gray-600"><span class="font-semibold text-gray-700">تاريخ الرفع|</span> ${proj.date || 'غير متوفر'}</p>
-                        <p class="text-sm text-gray-600"><span class="font-semibold text-gray-700">وصف المشروع |</span> ${proj.description || 'بدون وصف'}</p>
+                        <h3 class="text-xl font-bold text-emerald-400">${proj.name}</h3>
+                        <p class="text-sm text-gray-300"><span class="font-semibold text-gray-400">اسم الملف |</span> ${fileNames}</p>
+                        <p class="text-sm text-gray-300"><span class="font-semibold text-gray-400">تاريخ الرفع|</span> ${proj.date || 'غير متوفر'}</p>
+                        <p class="text-sm text-gray-300"><span class="font-semibold text-gray-400">وصف المشروع |</span> ${proj.description || 'بدون وصف'}</p>
                     </div>
-                    <button onclick="openProjectFromBrowse('${proj.name}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-semibold transition whitespace-nowrap shadow text-sm">
+                    <button onclick="openProjectFromBrowse('${proj.name}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold transition whitespace-nowrap shadow text-sm">
                         رؤية المشروع 👀
                     </button>
                 `;
@@ -496,7 +500,7 @@
             previewContainer.innerHTML = '';
             const hasHtml = proj.files.some(f => f.name.toLowerCase().endsWith('.html'));
             if (hasHtml) {
-                previewContainer.innerHTML = `<button onclick="openPreview()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition"><i class="fa-solid fa-eye ml-1"></i> معاينة</button>`;
+                previewContainer.innerHTML = `<button onclick="openPreview()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition"><i class="fa-solid fa-eye ml-1"></i> معاينة</button>`;
             }
 
             const filesListEl = document.getElementById('files-list');
@@ -504,13 +508,13 @@
             
             proj.files.forEach((file, index) => {
                 let div = document.createElement('div');
-                div.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-200 hover:bg-blue-50 cursor-pointer transition';
+                div.className = 'flex items-center justify-between bg-gray-950 p-3 rounded-xl border border-gray-800 hover:bg-gray-900 cursor-pointer transition';
                 div.innerHTML = `
-                    <div class="flex items-center gap-2 text-gray-700">
-                        <i class="fa-solid fa-file text-blue-500"></i> 
+                    <div class="flex items-center gap-2 text-gray-300">
+                        <i class="fa-solid fa-file text-emerald-400"></i> 
                         <span class="font-semibold">${file.name}</span>
                     </div>
-                    <span class="text-xs text-blue-600 font-medium">عرض وتعديل</span>
+                    <span class="text-xs text-emerald-400 font-medium">عرض وتعديل</span>
                 `;
                 div.onclick = () => selectFileToEdit(index);
                 filesListEl.appendChild(div);
